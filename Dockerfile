@@ -6,6 +6,7 @@ RUN apk -U add alpine-sdk coreutils \
   && rm -rf /var/cache/apk/*
 ADD entrypoint.sh /bin/
 ADD abuild.conf /etc/abuild.conf
+RUN mkdir -p /home/builder/package/main/ && chown -R builder /home/builder/
 USER builder
 ENTRYPOINT entrypoint.sh
 WORKDIR /home/builder/package
