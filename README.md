@@ -89,6 +89,26 @@ docker run --rm -it -e RSA_PRIVATE_KEY="$(cat ./your-rsa-key.rsa)" -v $(pwd)/you
 
 The container will run, build the package and then exit, and then remove itself.
 You should have your Alpine Linux APK package in `packages/main/x86_64/`.
+# jenkins
+here is an example setup for this in jenkins:
+we upload the rsa keypair to jenkins and the set the keys as vars in the job
+```
+PACKAGE_PRIV_KEY
+PACKAGE_PUB_KEY
+```
+
+Job shell (I am assuming you have docker installed on your jenkins slaves).
+```
+mkdir -p $WORKSPACE/packages
+chmod 0777 $WORKSPACE && chmod 0777 $WORKSPACE/packages
+chmod 0655 $PACKAGE_PUB_KEY
+docker run --rm -e RSA_PRIVATE_KEY="$(cat $PACKAGE_PRIV_KEY)" \
+-v $PACKAGE_PUB_KEY:/etc/apk/keys/abuild.rsa.pub \
+-v $WORKSPACE:/home/builder/package \
+-v $WORKSPACE/packages:/home/builder/packages \
+"docker-registry/alpine-jazz-hands"
+```
+
 
 
 # Caveats and things
