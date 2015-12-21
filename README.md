@@ -11,7 +11,7 @@ With this project, you can build your own packages for Alpine Linux!
 
 Clone this repo.
 ```
-Git clone https://github.com/madedotcom/alpine-jazz-hands.git && cd alpine-jazz-hands
+git clone https://github.com/madedotcom/alpine-jazz-hands.git && cd alpine-jazz-hands
 ```
 
 Next, you will need to generate some RSA keys so you can sign your packages:
@@ -74,7 +74,7 @@ Place your `APKBUILD` file (and any patches) in `alpine-jazz-hands/main/pongo-bl
 cd main && git clone https://github.com/madedotcom/alpine-pongo-blender.git
 ```
 
-Update the `abuild.conf` file, `PACKAGER="giddy@made.com"` with `PACKAGER="yourname@aol.com"` .
+Update the `abuild.conf` file, `PACKAGER="giddy@made.com"` with `PACKAGER="Your Name <yourname@aol.com>` .
 
 Build it, assuming that you are in the `alpine-jazz-hands` root directory.
 ```
@@ -84,7 +84,7 @@ docker build -t "alpine-jazz-hands" .
 
 Run it (notice that we are using the keys generated, and mounting them inside the container).
 ```
-docker run --rm -it -e RSA_PRIVATE_KEY="$(cat ./your-rsa-key.rsa)" -v $(pwd)/your-rsa-key.rsa.pub:/etc/apk/keys/abuild.rsa.pub -v $(pwd):/home/builder/package -v $(pwd)/packages:/home/builder/packages "alpine-jazz-hands"
+docker run --rm -it -e RSA_PRIVATE_KEY="$(cat ./your-rsa-key.rsa)" -e PACKAGER="Your Name <yourname@aol.com>" -v $(pwd)/your-rsa-key.rsa.pub:/etc/apk/keys/abuild.rsa.pub -v $(pwd):/home/builder/package -v $(pwd)/packages:/home/builder/packages "alpine-jazz-hands"
 ```
 
 The container will run, build the package and then exit, and then remove itself.
