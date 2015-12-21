@@ -1,5 +1,5 @@
-
 FROM gliderlabs/alpine:3.2
+ENV TERM=xterm
 RUN apk -U add alpine-sdk coreutils \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/sh -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
@@ -11,3 +11,4 @@ USER builder
 ENTRYPOINT entrypoint.sh
 WORKDIR /home/builder/package
 ENV PACKAGER_PRIVKEY /home/builder/abuild.rsa
+ADD Dockerfile /alpine-jazz-hands.Dockerfile
