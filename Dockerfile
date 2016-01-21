@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:3.2
+FROM gliderlabs/alpine:3.3
 ENV TERM=xterm
 RUN apk -U add alpine-sdk coreutils \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/sh -D builder \
